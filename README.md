@@ -341,3 +341,58 @@ This project reinforces:
 # License
 
 This project is intended for educational purposes and may be modified or extended for personal learning.
+
+
+✔ Create project structure
+        ↓
+✔ Write README
+        ↓
+✔ Write apc.h
+        ↓
+✔ Write Makefile
+        ↓
+✔ Minimal main.c
+        ↓
+✔ Validate command-line arguments
+        ↓
+✔ Create linked list module
+        ↓
+✔ Convert string → linked list
+        ↓
+✔ Print linked list
+        ↓
+✔ Implement addition
+        ↓
+✔ Implement subtraction
+        ↓
+✔ Implement multiplication
+        ↓
+✔ Implement division
+        ↓
+✔ Free all memory
+        ↓
+✔ Test edge cases
+
+
+
+
+main()
+   │
+   ▼
+validate_arguments()
+   │
+   ▼
+create_operand_lists()
+   │
+   ▼
+choose_operation()
+   │
+   ▼
+addition/subtraction/
+multiplication/division
+   │
+   ▼
+print_result()
+   │
+   ▼
+delete_lists()
