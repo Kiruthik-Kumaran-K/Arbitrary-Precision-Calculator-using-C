@@ -31,7 +31,7 @@ Status execute_operation(Dlist *head1, Dlist *tail1, Dlist *head2, Dlist *tail2,
             }
 
             case 'X':
-                  // status = multiply_lists(/* arguments */);
+                  status = multiply_lists( tail1, tail2, result_head, result_tail);
                   break;
 
             case '/':

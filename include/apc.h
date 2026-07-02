@@ -94,20 +94,16 @@ Status subtract_lists(
         Dlist **result_head,
         Dlist **result_tail);
 
-// Status multiply_lists(...);
+Status multiply_lists(
+    Dlist *tail1,
+    Dlist *tail2,
+    Dlist **result_head,
+    Dlist **result_tail); 
+    
+void remove_leading_zeros(Dlist **head, Dlist **tail);    
 
 // Status divide_lists(...);
 
 #endif
 
-/*
 
-int compare_lists(...);
-
-int get_length(...);
-
-void remove_leading_zeros(...);
-
-Status copy_list(...);
-
-*/
