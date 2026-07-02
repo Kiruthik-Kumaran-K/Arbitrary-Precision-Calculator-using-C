@@ -86,9 +86,7 @@ Status add_lists(
         Dlist **result_tail);
 
 Status subtract_lists(
-        Dlist *head1,
         Dlist *tail1,
-        Dlist *head2,
         Dlist *tail2,
         Dlist **result_head,
         Dlist **result_tail);
