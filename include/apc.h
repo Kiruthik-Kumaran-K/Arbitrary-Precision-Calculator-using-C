@@ -6,6 +6,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <stdint.h>
+#include <stdbool.h>
 
 typedef struct node
 {
@@ -68,16 +69,18 @@ Status execute_operation(
       Dlist *tail1, 
       Dlist *head2, 
       Dlist *tail2,
-      char operator, 
+      char operator,
+      bool *negative, 
       Dlist **result_head, 
       Dlist **result_tail);
 
 /* Output */
 void print_result(const Dlist *head);
+// void print_result(result_head, negative);
 
 int compare_lists(
-        Dlist *head1,
-        Dlist *head2);
+        const Dlist *head1,
+        const Dlist *head2);
 
 Status add_lists(
         Dlist *tail1,
@@ -91,9 +94,9 @@ Status subtract_lists(
         Dlist **result_head,
         Dlist **result_tail);
 
-Status multiply_lists(...);
+// Status multiply_lists(...);
 
-Status divide_lists(...);
+// Status divide_lists(...);
 
 #endif
 

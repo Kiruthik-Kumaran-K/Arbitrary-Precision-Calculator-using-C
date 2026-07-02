@@ -1,5 +1,21 @@
 #include "../include/apc.h"
 
+static Dlist* create_node(uint8_t data)
+{
+      Dlist *new_node = malloc(sizeof(*new_node));
+
+      if(new_node == NULL)
+      {
+            return NULL;
+      }
+
+      new_node->digit = data;
+      new_node->prev = NULL;
+      new_node->next = NULL;
+
+      return new_node;
+}
+
 /*
  * Inserts a digit at the beginning of the doubly linked list.
  *
@@ -110,18 +126,4 @@ void delete_list(Dlist **head, Dlist **tail)
       *tail = NULL;
 }
 
-static Dlist* create_node(uint8_t data)
-{
-      Dlist *new_node = malloc(sizeof(*new_node));
 
-      if(new_node == NULL)
-      {
-            return NULL;
-      }
-
-      new_node->digit = data;
-      new_node->prev = NULL;
-      new_node->next = NULL;
-
-      return new_node;
-}

@@ -45,8 +45,9 @@ int compare_lists(const Dlist *head1, const Dlist *head2)
             return GREATER_THAN;
       }
 
-      if(count_operand1 < count_operand2)
-      {
-            return LESS_THAN;
-      }
+      // if(count_operand1 < count_operand2)
+      // {
+      //       return LESS_THAN;
+      // }
+      return LESS_THAN;
 }

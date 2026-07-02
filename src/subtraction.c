@@ -12,7 +12,7 @@ void remove_leading_zeros(Dlist **head, Dlist **tail)
             Dlist *temp = *head;
             *head = (*head)->next;
             (*head)->prev = NULL;
-            free(*temp);
+            free(temp);
       }
 
       return;
