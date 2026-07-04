@@ -22,8 +22,9 @@ This project is designed as a learning exercise to strengthen concepts in:
 
 * Addition (`+`)
 * Subtraction (`-`)
-* Multiplication (`*`)
-* Division (`/`)
+* Multiplication (`X`)
+* Division (`/`) *(implemented using repeated subtraction)*
+* Arbitrary precision integer support using a doubly linked list
 * Unlimited number of digits
 * Command-line interface
 * Modular source code organization
@@ -86,12 +87,13 @@ APC/
 │   ├── subtraction.c
 │   ├── multiplication.c
 │   ├── division.c
-│   ├── utils.c
+│   ├── compare.c
 │   └── print.c
+│   └── execute_operation.c
+│   └── valiadtion.c
 │
-├── test/
 │
-├── Makefile
+├── LICENSE
 │
 └── README.md
 ```
@@ -166,6 +168,7 @@ The program validates:
 * Invalid characters
 * Leading zeros (handled appropriately)
 * Division by zero
+* Memory allocation failures
 
 ---
 
@@ -212,83 +215,154 @@ Each node stores:
 
 ---
 
-# Modules
+## Modules
 
-## main.c
-
-* Program entry point
-* Validates command-line arguments
-* Calls parser
-* Executes requested arithmetic operation
-* Displays result
-* Releases allocated memory
-
----
-
-## parser.c
+### main.c
 
 Responsible for:
 
-* Validating operands
-* Parsing command-line arguments
-* Creating linked lists from strings
+* Program entry point
+* Validates command-line arguments
+* Creates operand linked lists
+* Calls execute_operation()
+* Prints the final result
+* Releases all allocated memory
 
 ---
 
-## list.c
+### validation.c
 
-Implements linked list operations:
+Responsible for validating user input before any arithmetic operation.
 
-* Insert at front
-* Insert at end
-* Delete list
-* Traverse list
-* Print list
-* Compute length
+Responsibilities:
 
----
-
-## addition.c
-
-Implements addition using carry propagation.
+* Validate the number of command-line arguments.
+* Validate the arithmetic operator.
+* Validate operand format.
+* Ensure operands contain only decimal digits.
+* Detect invalid operators.
+* Return appropriate error codes for invalid input.
 
 ---
 
-## subtraction.c
+### parser.c
 
-Implements subtraction using borrow propagation.
+Responsible for:
 
----
-
-## multiplication.c
-
-Implements multiplication using the traditional grade-school algorithm.
+* Converting operand strings into doubly linked lists.
+* Creating linked-list representations of arbitrary precision integers.
 
 ---
 
-## division.c
+### list.c
 
-Implements integer division using long division principles.
+Implements fundamental doubly linked list operations:
 
----
-
-## utils.c
-
-Contains helper routines such as:
-
-* Compare numbers
-* Remove leading zeros
-* Copy linked lists
-* Reverse traversal helpers
-* Check for zero
+* insert_first()
+* insert_last()
+* delete_list()
 
 ---
 
-## print.c
+### compare.c
 
-Responsible for formatting and displaying the final result.
+Responsible for comparing two arbitrary precision integers.
+
+Responsibilities:
+
+* Compute the length of operands.
+* Compare operands based on length.
+* Compare digits when lengths are equal.
+* Return:
+  * GREATER_THAN
+  * LESS_THAN
+  * EQUAL
+
+Used by subtraction and division modules.
 
 ---
+
+### addition.c
+
+Implements arbitrary precision addition.
+
+Responsibilities:
+
+* Traverse operands from least significant digit.
+* Perform digit-by-digit addition.
+* Propagate carry.
+* Store the result in a new linked list.
+
+---
+
+### subtraction.c
+
+Implements arbitrary precision subtraction.
+
+Responsibilities:
+
+* Traverse operands from least significant digit.
+* Perform borrow propagation.
+* Remove leading zeros from the result.
+* Return the difference as a linked list.
+
+---
+
+### multiplication.c
+
+Implements arbitrary precision multiplication using the grade-school multiplication algorithm.
+
+Responsibilities:
+
+* Multiply one operand by a single digit.
+* Generate partial products.
+* Append positional zeros.
+* Accumulate partial products using addition.
+* Return the final product.
+
+---
+
+### division.c
+
+Implements arbitrary precision integer division using the repeated subtraction algorithm.
+
+Responsibilities:
+
+* Check for division by zero.
+* Repeatedly subtract the divisor from the dividend.
+* Count the number of successful subtractions.
+* Return the quotient as a linked list.
+
+> **Note:** This implementation is functionally correct but not optimal for very large numbers. A long-division algorithm can be implemented in future versions for better performance.
+
+---
+
+### execute_operation.c
+
+Acts as the arithmetic dispatcher.
+
+Responsibilities:
+
+* Select the requested arithmetic operation.
+* Invoke:
+  * Addition
+  * Subtraction
+  * Multiplication
+  * Division
+* Compare operands before subtraction.
+* Handle negative subtraction results.
+* Return the operation status to `main()`.
+
+---
+
+### print.c
+
+Responsible for displaying the final result.
+
+Responsibilities:
+
+* Print the linked-list representation as an integer.
+* Display negative sign when required.
 
 # Development Process
 
@@ -302,22 +376,6 @@ The project follows a structured development approach.
 6. Integration Testing
 7. Memory Leak Testing
 8. Final Validation
-
----
-
-# Future Improvements
-
-* Signed integer support
-* Modulus operator (`%`)
-* Exponentiation
-* Factorial
-* Parentheses support
-* Expression parser
-* Scientific notation
-* Hexadecimal and binary support
-* Interactive shell mode
-* Decimal (floating-point) support
-* Performance optimizations
 
 ---
 
@@ -349,8 +407,6 @@ This project is intended for educational purposes and may be modified or extende
         ↓
 ✔ Write apc.h
         ↓
-✔ Write Makefile
-        ↓
 ✔ Minimal main.c
         ↓
 ✔ Validate command-line arguments
@@ -367,7 +423,7 @@ This project is intended for educational purposes and may be modified or extende
         ↓
 ✔ Implement multiplication
         ↓
-✔ Implement division
+✔ Implement division (repeated subtraction)
         ↓
 ✔ Free all memory
         ↓

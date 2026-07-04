@@ -15,12 +15,6 @@ typedef struct node
       struct node* next;
 }Dlist;
 
-// typedef struct
-// {
-//     Dlist *head;
-//     Dlist *tail;
-// } BigInteger;
-
 typedef enum
 {
       STATUS_SUCCESS = 0,
@@ -76,7 +70,7 @@ Status execute_operation(
 
 /* Output */
 void print_result(const Dlist *head);
-// void print_result(result_head, negative);
+
 
 int compare_lists(
         const Dlist *head1,
@@ -99,10 +93,23 @@ Status multiply_lists(
     Dlist *tail2,
     Dlist **result_head,
     Dlist **result_tail); 
-    
-void remove_leading_zeros(Dlist **head, Dlist **tail);    
 
-// Status divide_lists(...);
+Status divide_lists(
+        Dlist *head1,
+        Dlist *head2,
+        Dlist *tail2,
+        Dlist **result_head,
+        Dlist **result_tail);
+
+
+Status copy_list(
+        const Dlist *src_head,
+        Dlist **dest_head,
+        Dlist **dest_tail);
+    
+void remove_leading_zeros(Dlist **head, Dlist **tail);
+
+bool is_zero(const Dlist *head);   
 
 #endif
 
